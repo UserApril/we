@@ -115,10 +115,10 @@
 		<!--</table>-->
 		<!--<table tableName="item" domainObjectName="Item">-->
 		<!--</table>-->
-		<table tableName="mainInfo" domainObjectName="MainInfo">
-		</table>
-		<!--<table tableName="slideList" domainObjectName="SlideList">-->
+		<!--<table tableName="mainInfo" domainObjectName="MainInfo">-->
 		<!--</table>-->
+		<table tableName="slideList" domainObjectName="SlideList">
+		</table>
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
 			column="sid" sqlStatement="Mysql" identity="true"/> </table> -->
 		<!-- <table tableName="ldcode" domainObjectName="LdCode"> -->

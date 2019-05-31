@@ -5,6 +5,7 @@ import com.zz.we.mapper.ItemMapper;
 import com.zz.we.mapper.MainInfoMapper;
 import com.zz.we.mapper.SlideListMapper;
 import com.zz.we.response.Resp_Index;
+import com.zz.we.response.Resp_Photos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,9 +36,12 @@ public class mycontroller {
 
     //相册--->photos
     private Object getPhotos(String appid){
-        MainInfoExample mainInfoExample =new MainInfoExample();
-        List<MainInfo> mainInfos = mainInfoMapper.selectByExample(mainInfoExample);
-        return mainInfos;
+        Resp_Photos resp_photos =new Resp_Photos();
+        SlideListExample slideListExample =new SlideListExample();
+        slideListExample.createCriteria().andAppidEqualTo(appid);
+        List<SlideList> slideLists = slideListMapper.selectByExample(slideListExample);
+        resp_photos.setSlideList(slideLists);
+        return resp_photos;
     }
 
     //留言互动--->chat
