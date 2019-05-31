@@ -4,7 +4,6 @@ import com.zz.we.dto.*;
 import com.zz.we.mapper.ItemMapper;
 import com.zz.we.mapper.MainInfoMapper;
 import com.zz.we.mapper.SlideListMapper;
-import com.zz.we.response.Resp_Date;
 import com.zz.we.response.Resp_Index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +49,6 @@ public class mycontroller {
 
     //邀请函---->index
     private Object getIndex(String appid){
-        Resp_Date resp_date =new Resp_Date();
         Resp_Index resp_index =new Resp_Index();
         MainInfoExample mainInfoExample =new MainInfoExample();
         mainInfoExample.createCriteria().andAppidEqualTo(appid);
@@ -58,8 +56,7 @@ public class mycontroller {
         MainInfo mainInfo = mainInfos.get(0);
         resp_index.setMusic_url(mainInfo.getMusicUrl());
         resp_index.setMainInfo(mainInfo);
-        resp_date.setData(resp_index);
-        return resp_date;
+        return resp_index;
     }
 
     //好友祝福--->bless
