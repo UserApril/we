@@ -111,14 +111,14 @@
 		
 		<!-- <table tableName="LCAppElcImgDetail" domainObjectName="LCAppElcImgDetail"> 
 		</table> -->
-		<table tableName="log" domainObjectName="Log">
-		</table>
-		<table tableName="item" domainObjectName="Item">
-		</table>
+		<!--<table tableName="log" domainObjectName="Log">-->
+		<!--</table>-->
+		<!--<table tableName="item" domainObjectName="Item">-->
+		<!--</table>-->
 		<table tableName="mainInfo" domainObjectName="MainInfo">
 		</table>
-		<table tableName="slideList" domainObjectName="SlideList">
-		</table>
+		<!--<table tableName="slideList" domainObjectName="SlideList">-->
+		<!--</table>-->
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
 			column="sid" sqlStatement="Mysql" identity="true"/> </table> -->
 		<!-- <table tableName="ldcode" domainObjectName="LdCode"> -->
