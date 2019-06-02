@@ -1,6 +1,6 @@
 package com.zz.we.response;
 
-public class Resp_chat {
+public class Resp_common {
 
     private String success;
 

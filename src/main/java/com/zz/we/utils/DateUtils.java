@@ -1,4 +1,4 @@
-package com.zz.we.util;
+package com.zz.we.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

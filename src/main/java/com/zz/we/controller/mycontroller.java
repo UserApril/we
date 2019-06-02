@@ -2,15 +2,9 @@ package com.zz.we.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zz.we.dto.*;
-import com.zz.we.mapper.ChatMapper;
-import com.zz.we.mapper.CommentMapper;
-import com.zz.we.mapper.MainInfoMapper;
-import com.zz.we.mapper.SlideListMapper;
-import com.zz.we.response.Resp_Index;
-import com.zz.we.response.Resp_Photos;
-import com.zz.we.response.Resp_chat;
-import com.zz.we.response.Resp_chatInfo;
-import com.zz.we.util.DateUtils;
+import com.zz.we.mapper.*;
+import com.zz.we.response.*;
+import com.zz.we.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +17,15 @@ public class mycontroller {
 
     @Autowired
     public MainInfoMapper mainInfoMapper;
-
     @Autowired
     public SlideListMapper slideListMapper;
-
     @Autowired
     public ChatMapper chatMapper;
-
     @Autowired
     public CommentMapper commentMapper;
+    @Autowired
+    public PraiseMapper praiseMapper;
+
     //酒店地址--->map
     private Object getMap(String appid){
 
@@ -76,7 +70,7 @@ public class mycontroller {
 
     //我要出席
     private Object addSign(Map map){
-        Resp_chat resp_chat =new Resp_chat();
+        Resp_common resp_chat =new Resp_common();
         try{
             Chat chat =new Chat();
             chat.setAppid((String)map.get("appid"));
@@ -102,7 +96,7 @@ public class mycontroller {
 
     //我要留言
     private Object addSend(Map map){
-        Resp_chat resp_chat =new Resp_chat();
+        Resp_common resp_common =new Resp_common();
         Comment comment =new Comment();
         try{
             comment.setAppid((String)map.get("appid"));
@@ -117,19 +111,47 @@ public class mycontroller {
                 System.out.println(e);
                 throw new Exception("插入数据库失败");
             }
-            resp_chat.setSuccess("1");
-            return resp_chat;
+            resp_common.setSuccess("1");
+            return resp_common;
         }catch (Exception e){
-            resp_chat.setSuccess("2");
-            resp_chat.setMsg(e.getMessage());
-            return resp_chat;
+            resp_common.setSuccess("2");
+            resp_common.setMsg(e.getMessage());
+            return resp_common;
         }
-
     }
 
+    //好友点赞
+    private Object addZan(Map map){
+        Resp_common resp_common =new Resp_common();
+        Praise praise =new Praise();
+        try{
+            praise.setAppid((String)map.get("appid"));
+            praise.setFace((String)map.get("face"));
+            praise.setNickname((String)map.get("nickname"));
+            praise.setRequesttime(DateUtils.getDate());
+            try{
+                praiseMapper.insert(praise);
+            }catch (Exception e){
+                System.out.println(e);
+                throw new Exception("插入数据库失败");
+            }
+            resp_common.setSuccess("1");
+            return resp_common;
+        }catch (Exception e){
+            resp_common.setSuccess("2");
+            resp_common.setMsg(e.getMessage());
+            return resp_common;
+        }
+    }
     //好友祝福--->bless
     private Object getBless(String appid){
-        return null;
+        Resp_bless resp_bless =new Resp_bless();
+        PraiseExample praiseExample = new PraiseExample();
+        praiseExample.createCriteria().andAppidEqualTo(appid);
+        List<Praise> praises = praiseMapper.selectByExample(praiseExample);
+        resp_bless.setZanNum(praises.size());
+        resp_bless.setZanLog(praises);
+        return resp_bless;
     }
 
     @RequestMapping(value = "/findinfo",method = RequestMethod.GET)
@@ -156,8 +178,10 @@ public class mycontroller {
             return addSign(map);
         }else if("send".equals(map.get("c"))){
             return addSend(map);
+        }else if("zan".equals(map.get("c"))){
+            return addSend(map);
         }else{
-            return null;
+            return "unknow error!";
         }
     }
 }
