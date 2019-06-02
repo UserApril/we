@@ -117,7 +117,7 @@
 		<!--</table>-->
 		<!--<table tableName="mainInfo" domainObjectName="MainInfo">-->
 		<!--</table>-->
-		<table tableName="slideList" domainObjectName="SlideList">
+		<table tableName="chat" domainObjectName="Chat">
 		</table>
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
 			column="sid" sqlStatement="Mysql" identity="true"/> </table> -->

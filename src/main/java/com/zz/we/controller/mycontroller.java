@@ -1,25 +1,22 @@
 package com.zz.we.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zz.we.dto.*;
-import com.zz.we.mapper.ItemMapper;
+import com.zz.we.mapper.ChatMapper;
 import com.zz.we.mapper.MainInfoMapper;
 import com.zz.we.mapper.SlideListMapper;
 import com.zz.we.response.Resp_Index;
 import com.zz.we.response.Resp_Photos;
+import com.zz.we.response.Resp_chat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/wechat")
 @RestController
 public class mycontroller {
-
-    @Autowired
-    public ItemMapper itemMapper;
 
     @Autowired
     public MainInfoMapper mainInfoMapper;
@@ -27,11 +24,13 @@ public class mycontroller {
     @Autowired
     public SlideListMapper slideListMapper;
 
+    @Autowired
+    public ChatMapper chatMapper;
+
     //酒店地址--->map
     private Object getMap(String appid){
-        ItemExample itemExample =new ItemExample();
-        List<Item> items = itemMapper.selectByExample(itemExample);
-        return items;
+
+        return null;
     }
 
     //相册--->photos
@@ -68,8 +67,8 @@ public class mycontroller {
         return null;
     }
 
-    @RequestMapping(value = "/input",method = RequestMethod.GET)
-    public Object input(@RequestParam("c") String c, @RequestParam("appid") String appid){
+    @RequestMapping(value = "/findinfo",method = RequestMethod.GET)
+    public Object findInfo(@RequestParam("c") String c, @RequestParam("appid") String appid){
         if("map".equals(c)){
             return getMap(appid);
         }else if("photos".equals(c)){
@@ -83,5 +82,30 @@ public class mycontroller {
         }else{
             return "unknow error!";
         }
+    }
+
+    @RequestMapping(value = "/addchat",method = RequestMethod.POST)
+    public Object addChat(@RequestBody String req){
+        Resp_chat resp_chat =new Resp_chat();
+        try{
+            Map map = (Map) JSONObject.parse(req);
+            Chat chat =new Chat();
+            chat.setAppid((String)map.get("appid"));
+            chat.setFace((String)map.get("face"));
+            chat.setName((String)map.get("name"));
+            chat.setNickname((String)map.get("nickname"));
+            chat.setPlan((String)map.get("plan"));
+            chat.setTel((String)map.get("tel"));
+            chat.setExtra((String)map.get("extra"));
+            chatMapper.insert(chat);
+
+            resp_chat.setSuccess("1");
+        }catch (Exception e){
+            resp_chat.setSuccess("2");
+            resp_chat.setMsg(e.getMessage());
+            return resp_chat;
+        }
+        return resp_chat;
+
     }
 }
