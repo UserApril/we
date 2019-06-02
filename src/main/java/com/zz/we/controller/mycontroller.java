@@ -109,11 +109,12 @@ public class mycontroller {
             comment.setFace((String)map.get("face"));
             comment.setNickname((String)map.get("nickname"));
             comment.setWords((String)map.get("words"));
-            comment.setTime(new Date());
-            comment.setUpdate(new Date());
+            comment.setRequesttime(new Date());
+            comment.setUpdatetime(new Date());
             try{
                 commentMapper.insert(comment);
             }catch (Exception e){
+                System.out.println(e);
                 throw new Exception("插入数据库失败");
             }
             resp_chat.setSuccess("1");
