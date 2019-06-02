@@ -115,8 +115,8 @@
 		<!--</table>-->
 		<!--<table tableName="item" domainObjectName="Item">-->
 		<!--</table>-->
-		<!--<table tableName="mainInfo" domainObjectName="MainInfo">-->
-		<!--</table>-->
+		<table tableName="comment" domainObjectName="Comment">
+		</table>
 		<table tableName="chat" domainObjectName="Chat">
 		</table>
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
