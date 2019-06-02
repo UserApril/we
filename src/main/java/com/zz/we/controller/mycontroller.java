@@ -10,10 +10,10 @@ import com.zz.we.response.Resp_Index;
 import com.zz.we.response.Resp_Photos;
 import com.zz.we.response.Resp_chat;
 import com.zz.we.response.Resp_chatInfo;
+import com.zz.we.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -109,8 +109,8 @@ public class mycontroller {
             comment.setFace((String)map.get("face"));
             comment.setNickname((String)map.get("nickname"));
             comment.setWords((String)map.get("words"));
-            comment.setRequesttime(new Date());
-            comment.setUpdatetime(new Date());
+            comment.setRequesttime(DateUtils.getDate());
+            comment.setUpdatetime(DateUtils.getDate());
             try{
                 commentMapper.insert(comment);
             }catch (Exception e){
