@@ -128,7 +128,7 @@ public class mycontroller {
         PraiseExample praiseExample =new PraiseExample();
         praiseExample.createCriteria().andAppidEqualTo((String)map.get("appid"));
         List<Praise> praises = praiseMapper.selectByExample(praiseExample);
-        if(praises.size()>1){
+        if(praises.size()>0){
             resp_common.setMsg("您的祝福新人们已经收到了哦！");
             return resp_common;
         }
