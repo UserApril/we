@@ -80,10 +80,12 @@ public class mycontroller {
             chat.setPlan((String)map.get("plan"));
             chat.setTel((String)map.get("tel"));
             chat.setExtra((String)map.get("extra"));
+            chat.setRequesttime(DateUtils.getDate());
+            chat.setUpdatetime(DateUtils.getDate());
             try{
                 chatMapper.insert(chat);
             }catch (Exception e){
-                throw new Exception("插入数据库失败");
+                throw new Exception("写入数据库失败");
             }
             resp_chat.setSuccess("1");
             return resp_chat;
@@ -109,7 +111,7 @@ public class mycontroller {
                 commentMapper.insert(comment);
             }catch (Exception e){
                 System.out.println(e);
-                throw new Exception("插入数据库失败");
+                throw new Exception("写入数据库失败");
             }
             resp_common.setSuccess("1");
             return resp_common;
@@ -120,9 +122,16 @@ public class mycontroller {
         }
     }
 
-    //好友点赞
+    //好友点赞--->每人点赞一次
     private Object addZan(Map map){
         Resp_common resp_common =new Resp_common();
+        PraiseExample praiseExample =new PraiseExample();
+        praiseExample.createCriteria().andAppidEqualTo((String)map.get("appid"));
+        List<Praise> praises = praiseMapper.selectByExample(praiseExample);
+        if(praises.size()>1){
+            resp_common.setMsg("您的祝福新人们已经收到了哦！");
+            return resp_common;
+        }
         Praise praise =new Praise();
         try{
             praise.setAppid((String)map.get("appid"));
@@ -133,7 +142,7 @@ public class mycontroller {
                 praiseMapper.insert(praise);
             }catch (Exception e){
                 System.out.println(e);
-                throw new Exception("插入数据库失败");
+                throw new Exception("写入数据库失败");
             }
             resp_common.setSuccess("1");
             return resp_common;
