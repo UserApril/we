@@ -25,11 +25,19 @@ public class mycontroller {
     public CommentMapper commentMapper;
     @Autowired
     public PraiseMapper praiseMapper;
+    @Autowired
+    public MmapMapper mmapMapper;
 
     //酒店地址--->map
     private Object getMap(String appid){
-
-        return null;
+        Resp_map resp_map =new Resp_map();
+        MmapExample mmapExample =new MmapExample();
+        mmapExample.createCriteria().andAppidEqualTo(appid);
+        List<Mmap> mmaps = mmapMapper.selectByExample(mmapExample);
+        if(mmaps.size()>0){
+            resp_map.setMainInfo(mmaps.get(0));
+        }
+        return resp_map;
     }
 
     //相册--->photos
