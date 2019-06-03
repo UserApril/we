@@ -188,7 +188,7 @@ public class mycontroller {
         }else if("send".equals(map.get("c"))){
             return addSend(map);
         }else if("zan".equals(map.get("c"))){
-            return addSend(map);
+            return addZan(map);
         }else{
             return "unknow error!";
         }
