@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RequestMapping("/wechat")
 @RestController
-public class mycontroller {
+public class ForeController {
 
     @Autowired
     public MainInfoMapper mainInfoMapper;
