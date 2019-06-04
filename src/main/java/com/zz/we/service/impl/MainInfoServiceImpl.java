@@ -16,6 +16,7 @@ public class MainInfoServiceImpl implements MainInfoService {
     @Autowired
     public MainInfoMapper mainInfoMapper;
 
+    @Override
     public Object getMainInfoByAppid(String appid){
         Resp_Index resp_index =new Resp_Index();
         MainInfoExample mainInfoExample =new MainInfoExample();

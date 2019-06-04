@@ -19,6 +19,7 @@ public class PraiseServiceImpl implements PraiseService {
     @Autowired
     public PraiseMapper praiseMapper;
 
+    @Override
     public Object getPraiseByAppid(String appid){
         Resp_praise resp_bless =new Resp_praise();
         PraiseExample praiseExample = new PraiseExample();
@@ -29,6 +30,7 @@ public class PraiseServiceImpl implements PraiseService {
         return resp_bless;
     }
 
+    @Override
     public Object addPraiseByMap(Map map){
         Resp_common resp_common = new Resp_common();
         PraiseExample praiseExample = new PraiseExample();

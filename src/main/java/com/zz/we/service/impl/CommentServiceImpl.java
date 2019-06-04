@@ -20,6 +20,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     public CommentMapper commentMapper;
 
+    @Override
     public Object getCommentByAppid(String appid){
         Resp_chatInfo resp_chatInfo =new Resp_chatInfo();
 
@@ -33,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
         return  resp_chatInfo;
     }
 
+    @Override
     public Object addCommentByMap(Map map){
         Resp_common resp_common =new Resp_common();
         Comment comment =new Comment();

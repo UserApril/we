@@ -15,6 +15,7 @@ public class MmapServiceImpl implements MmapService {
     @Autowired
     public MmapMapper mmapMapper;
 
+    @Override
     public Object getMapByAppid(String appid){
         Resp_map resp_map =new Resp_map();
         MmapExample mmapExample =new MmapExample();

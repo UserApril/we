@@ -16,6 +16,7 @@ public class ChatServiceImpl implements ChatService {
     @Autowired
     public ChatMapper chatMapper;
 
+    @Override
     public Object addChatByMap(Map map){
         Resp_common resp_common =new Resp_common();
         String nickname=(String)map.get("nickname");

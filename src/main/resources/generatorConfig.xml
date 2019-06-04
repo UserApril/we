@@ -117,7 +117,7 @@
 		<!--</table>-->
 		<!--<table tableName="comment" domainObjectName="Comment">-->
 		<!--</table>-->
-		<table tableName="map" domainObjectName="Mmap">
+		<table tableName="myuser" domainObjectName="MyUser">
 		</table>
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
 			column="sid" sqlStatement="Mysql" identity="true"/> </table> -->
