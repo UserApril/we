@@ -4,7 +4,7 @@ import com.zz.we.dto.Praise;
 
 import java.util.List;
 
-public class Resp_bless {
+public class Resp_praise {
 
     private int zanNum;
 
