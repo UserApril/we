@@ -2,8 +2,11 @@ package com.zz.we.service.impl;
 
 import com.zz.we.dto.Comment;
 import com.zz.we.dto.CommentExample;
+import com.zz.we.enums.Comment_enum;
 import com.zz.we.mapper.CommentMapper;
+import com.zz.we.mapper.ICommentMapper;
 import com.zz.we.response.Resp_chatInfo;
+import com.zz.we.response.Resp_comment;
 import com.zz.we.response.Resp_common;
 import com.zz.we.service.CommentService;
 import com.zz.we.utils.DateUtils;
@@ -13,19 +16,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     public CommentMapper commentMapper;
+    @Autowired
+    public ICommentMapper iCommentMapper;
 
     @Override
     public Object getCommentByAppid(String appid){
         Resp_chatInfo resp_chatInfo =new Resp_chatInfo();
 
         CommentExample commentExample =new CommentExample();
-        commentExample.createCriteria().andAppidEqualTo(appid);
+        commentExample.createCriteria().andAppidEqualTo(appid).andFlagEqualTo(Comment_enum.PASS.Code());
         List<Comment> comments = commentMapper.selectByExample(commentExample);
 
         resp_chatInfo.setChatNum(comments.size());
@@ -46,12 +52,14 @@ public class CommentServiceImpl implements CommentService {
             return resp_common;
         }
         try{
+            comment.setUuid(UUID.randomUUID().toString());
             comment.setAppid((String)map.get("appid"));
             comment.setFace(face);
             comment.setNickname(nickname);
             comment.setWords((String)map.get("words"));
             comment.setRequesttime(DateUtils.getDate());
             comment.setUpdatetime(DateUtils.getDate());
+            comment.setFlag(Comment_enum.UNPASS.Code());
             try{
                 commentMapper.insert(comment);
             }catch (Exception e){
@@ -67,4 +75,42 @@ public class CommentServiceImpl implements CommentService {
             return resp_common;
         }
     }
+
+    @Override
+    public Object updateCommentFlag(String uuid) {
+        Resp_common resp_common=new Resp_common();
+        try{
+            iCommentMapper.updateComment(uuid,Comment_enum.PASS.Code());
+            resp_common.setSuccess("1");
+            resp_common.setMsg("操作成功");
+        }catch (Exception e){
+            resp_common.setSuccess("2");
+            resp_common.setMsg("操作失败，"+e.getStackTrace());
+        }
+        return resp_common;
+    }
+
+    @Override
+    public Object getAllCommentByAppid(String appid) {
+        CommentExample commentExample =new CommentExample();
+        commentExample.createCriteria().andAppidEqualTo(appid);
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        Resp_comment resp_comment =new Resp_comment();
+        resp_comment.setData(comments);
+        resp_comment.setCode(0);
+        resp_comment.setCount(comments.size());
+        return resp_comment;
+    }
+
+    @Override
+    public Object delCommentByUuid(String uuid) {
+        CommentExample commentExample =new CommentExample();
+        commentExample.createCriteria().andUuidEqualTo(uuid);
+        commentMapper.deleteByExample(commentExample);
+        Resp_common resp_common =new Resp_common();
+        resp_common.setSuccess("1");
+        resp_common.setMsg("删除成功");
+        return resp_common;
+    }
+
 }
