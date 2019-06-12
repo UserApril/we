@@ -1,12 +1,12 @@
 package com.zz.we.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zz.we.service.CommentService;
 import com.zz.we.service.MainInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RequestMapping("/operator")
 @RestController
@@ -39,5 +39,12 @@ public class BackController {
     @RequestMapping(value = "/getmaininfo",method = RequestMethod.POST)
     public Object getMainInfo(){
         return mainInfoService.getAllMainInfo();
+    }
+
+    //修改请柬基础信息
+    @RequestMapping(value = "/updatemaininfo",method = RequestMethod.POST)
+    public Object updateMainInfo(@RequestBody String req){
+        Map map = (Map) JSONObject.parse(req);
+        return mainInfoService.updateByMap(map);
     }
 }
