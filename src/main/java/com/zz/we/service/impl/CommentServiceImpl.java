@@ -106,10 +106,15 @@ public class CommentServiceImpl implements CommentService {
     public Object delCommentByUuid(String uuid) {
         CommentExample commentExample =new CommentExample();
         commentExample.createCriteria().andUuidEqualTo(uuid);
-        commentMapper.deleteByExample(commentExample);
+        int i = commentMapper.deleteByExample(commentExample);
         Resp_common resp_common =new Resp_common();
-        resp_common.setSuccess("1");
-        resp_common.setMsg("删除成功");
+        if(i>0){
+            resp_common.setSuccess("1");
+            resp_common.setMsg("删除成功");
+        }else{
+            resp_common.setSuccess("2");
+            resp_common.setMsg("删除失败，该数据不存在。");
+        }
         return resp_common;
     }
 

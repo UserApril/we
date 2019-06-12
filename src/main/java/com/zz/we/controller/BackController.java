@@ -11,7 +11,6 @@ public class BackController {
     @Autowired
     public CommentService commentService;
 
-
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Object login(@RequestParam("account") String account,@RequestParam("password") String password,@RequestParam("verifyCode") String verifyCode){
 
@@ -26,5 +25,10 @@ public class BackController {
     @RequestMapping(value = "/delcomment",method = RequestMethod.POST)
     public Object delComment(@RequestParam("uuid") String uuid){
         return commentService.delCommentByUuid(uuid);
+    }
+
+    @RequestMapping(value = "/updatecomment",method = RequestMethod.POST)
+    public Object updateComment(@RequestParam("uuid") String uuid){
+        return commentService.updateCommentFlag(uuid);
     }
 }

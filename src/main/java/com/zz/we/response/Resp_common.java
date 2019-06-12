@@ -13,4 +13,12 @@ public class Resp_common {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
 }

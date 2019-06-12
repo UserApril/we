@@ -12,10 +12,11 @@
         <title>Comment</title>
         <link rel="stylesheet" href="../layui/css/layui.css">
     </head>
+	
 </head>
 <body>
 <script src="../layui/layui.js"></script>
-
+<script src="../layui/jquery-3.2.1.min.js"></script>
 <table id="demo" lay-filter="test" ></table>
 
 <script>
@@ -27,7 +28,7 @@
             elem: '#demo' //绑定table
             ,height: 400
             ,even: true  //隔行换色
-            ,url: '/operator/getcomment' //请求路径
+            ,url: '${pageContext.request.contextPath}/operator/getcomment' //请求路径
             ,method:'POST'
             ,page: true //开启分页
             ,where:{
@@ -59,45 +60,63 @@
             var data = obj.data;
             if(obj.event === 'del'){
                 layer.confirm('真的删除该记录吗？', function(index){
-                    // obj.del();
+                    var load = null;
                     layer.close(index);
-
                     $.ajax({
                         url:'${pageContext.request.contextPath}/operator/delcomment',
                         data:{'uuid':data.uuid},
                         method:'POST',
+                        dataType:"json",
+                        //请求前执行，无论请求是否成功
+                        beforeSend : function() {
+                            //显示加载动画
+                            load = layer.load(2);
+                        },
+                        complete : function() {
+                            //关闭加载动画
+                            layer.close(load);
+                        },
                         success:function(data){
-                            var str = '<div style="text-align:center" >删除完成<br>';
-                            var index = layer.open({
-                                type:1,
-                                title:'操作完成',
-                                btn:'确定',
-                                content:str,
-                                end:function(){
-                                    layer.close(index);
-                                    table.reload('demo');
-                                }
-                            });
+                            if(data.success){
+                                layer.msg("删除成功");
+                                window.location.reload();
+                            }
                         }
                     });
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
+                if(data.flag==1){
+                    $.ajax({
+                        url:'${pageContext.request.contextPath}/operator/updatecomment',
+                        data:{'uuid':data.uuid},
+                        method:'POST',
+                        dataType:"json",
+                        //请求前执行，无论请求是否成功
+                        beforeSend : function() {
+                            //显示加载动画
+                            load = layer.load(2);
+                        },
+                        complete : function() {
+                            //关闭加载动画
+                            layer.close(load);
+                        },
+                        success:function(data){
+                            if(data.success){
+                                layer.msg("该记录审核通过");
+                                window.location.reload();
+                            }
+                        }
                     });
-                    layer.close(index);
-                });
+                }else{
+                    layer.msg("该留言已通过审核！");
+                }
             }
         });
     });
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">审核</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
