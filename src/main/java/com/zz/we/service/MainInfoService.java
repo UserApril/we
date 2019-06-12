@@ -4,4 +4,6 @@ package com.zz.we.service;
 public interface MainInfoService {
 
     public Object getMainInfoByAppid(String appid);
+
+    public Object getAllMainInfo();
 }

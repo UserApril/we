@@ -6,7 +6,7 @@ import com.zz.we.enums.Comment_enum;
 import com.zz.we.mapper.CommentMapper;
 import com.zz.we.mapper.ICommentMapper;
 import com.zz.we.response.Resp_chatInfo;
-import com.zz.we.response.Resp_comment;
+import com.zz.we.response.Resp_com_back;
 import com.zz.we.response.Resp_common;
 import com.zz.we.service.CommentService;
 import com.zz.we.utils.DateUtils;
@@ -95,11 +95,11 @@ public class CommentServiceImpl implements CommentService {
         CommentExample commentExample =new CommentExample();
         commentExample.createCriteria().andAppidEqualTo(appid);
         List<Comment> comments = commentMapper.selectByExample(commentExample);
-        Resp_comment resp_comment =new Resp_comment();
-        resp_comment.setData(comments);
-        resp_comment.setCode(0);
-        resp_comment.setCount(comments.size());
-        return resp_comment;
+        Resp_com_back resp_com_back =new Resp_com_back();
+        resp_com_back.setData(comments);
+        resp_com_back.setCode(0);
+        resp_com_back.setCount(comments.size());
+        return resp_com_back;
     }
 
     @Override

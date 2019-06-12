@@ -1,12 +1,10 @@
 package com.zz.we.response;
 
-import com.zz.we.dto.Comment;
-
 import java.util.List;
 
-public class Resp_comment {
+public class Resp_com_back<T> {
 
-    private List<Comment> data;
+    private List<T> data;
 
     private int code;
 
@@ -38,11 +36,11 @@ public class Resp_comment {
         this.msg = msg;
     }
 
-    public List<Comment> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<Comment> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }

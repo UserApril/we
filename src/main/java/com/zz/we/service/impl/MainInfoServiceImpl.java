@@ -4,6 +4,7 @@ import com.zz.we.dto.MainInfo;
 import com.zz.we.dto.MainInfoExample;
 import com.zz.we.mapper.MainInfoMapper;
 import com.zz.we.response.Resp_Index;
+import com.zz.we.response.Resp_com_back;
 import com.zz.we.service.MainInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,16 @@ public class MainInfoServiceImpl implements MainInfoService {
         resp_index.setMusic_url(mainInfo.getMusicUrl());
         resp_index.setMainInfo(mainInfo);
         return resp_index;
+    }
+
+    @Override
+    public Object getAllMainInfo() {
+        MainInfoExample mainInfoExample =new MainInfoExample();
+        List<MainInfo> mainInfos = mainInfoMapper.selectByExample(mainInfoExample);
+        Resp_com_back resp_com_back =new Resp_com_back();
+        resp_com_back.setData(mainInfos);
+        resp_com_back.setCode(0);
+        resp_com_back.setCount(mainInfos.size());
+        return resp_com_back;
     }
 }
