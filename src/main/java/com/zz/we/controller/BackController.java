@@ -1,6 +1,7 @@
 package com.zz.we.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zz.we.service.ChatService;
 import com.zz.we.service.CommentService;
 import com.zz.we.service.MainInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class BackController {
     public CommentService commentService;
     @Autowired
     public MainInfoService mainInfoService;
+    @Autowired
+    public ChatService chatService;
 
     //获取所有留言
     @RequestMapping(value = "/getcomment",method = RequestMethod.POST)
@@ -46,5 +49,11 @@ public class BackController {
     public Object updateMainInfo(@RequestBody String req){
         Map map = (Map) JSONObject.parse(req);
         return mainInfoService.updateByMap(map);
+    }
+
+    //查询出席信息
+    @RequestMapping(value = "/getchat",method = RequestMethod.POST)
+    public Object getChat(@RequestParam("appid") String appid){
+        return chatService.getChatByAppid(appid);
     }
 }

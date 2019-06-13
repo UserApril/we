@@ -15,7 +15,7 @@
 
 	<body>
 <script src="../lib/layui/layui.js"></script>
-<script src="../Love_files/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="../static/js/admin.js"></script>
 <table id="demo" lay-filter="test" ></table>
 
@@ -57,9 +57,10 @@
 				var load = null;
 				layer.close(index);
 				$.ajax({
-					url:'${pageContext.request.contextPath}/operator/updatemaininfo',
+					url:'/operator/updatemaininfo',
+					// data:{'he':data.he,'she':data.she,'date':data.date,'lunar':data.lunar,'appid':data.appid,'hotel':data.hotel,'address':data.address},
 					data:data,
-					method:'POST',
+					type:'POST',
 					dataType:"json",
 					//请求前执行，无论请求是否成功
 					beforeSend : function() {

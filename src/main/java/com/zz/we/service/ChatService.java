@@ -6,4 +6,7 @@ import java.util.Map;
 public interface ChatService {
     //添加留言
     public Object addChatByMap(Map map);
+
+    //获取留言
+    public Object getChatByAppid(String appid);
 }

@@ -60,7 +60,7 @@
 					</dl>
 				</li>
 				<li class="layui-nav-item to-index">
-					<a href="/">前台首页</a>
+					<a href="/">首页</a>
 				</li>
 			</ul>
 
@@ -81,7 +81,7 @@
 							<li>
 								<a _href="maininfo">
 									<i class="iconfont">&#xe6a7;</i>
-									<cite>请柬首页</cite>
+									<cite>请柬管理</cite>
 								</a>
 							</li>
 							<li>
@@ -167,11 +167,11 @@
 		<div class="page-content">
 			<div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
 				<ul class="layui-tab-title" id="tabName">
-					<li>爱情宣言</li>
+					<li>宣言</li>
 				</ul>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
-						<iframe src='Love' frameborder="0" scrolling="yes" class="weIframe"></iframe>
+						<iframe src='love' frameborder="0" scrolling="yes" class="weIframe"></iframe>
 					</div>
 				</div>
 			</div>
@@ -181,7 +181,7 @@
 		<!-- 中部结束 -->
 		<!-- 底部开始 -->
 		<div class="footer">
-			<div class="copyright">Copyright ©2019-08-25 赵政&童八九</div>
+			<div class="copyright">2019-08-25 赵政&童八九</div>
 		</div>
 		<!-- 底部结束 -->
 		<script type="text/javascript">
@@ -203,13 +203,13 @@
 					var login = JSON.parse(localStorage.getItem("login"));
 					if(login){
 						if(login=0){
-							window.location.href='./login';
+							// window.location.href='./login';
 							return false;
 						}else{
 							return false;
 						}
 					}else{
-						window.location.href='./login';
+						// window.location.href='./login';
 						return false;
 					}
 				});

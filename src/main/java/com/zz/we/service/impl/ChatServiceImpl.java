@@ -1,7 +1,9 @@
 package com.zz.we.service.impl;
 
 import com.zz.we.dto.Chat;
+import com.zz.we.dto.ChatExample;
 import com.zz.we.mapper.ChatMapper;
+import com.zz.we.response.Resp_com_back;
 import com.zz.we.response.Resp_common;
 import com.zz.we.service.ChatService;
 import com.zz.we.utils.DateUtils;
@@ -9,6 +11,7 @@ import com.zz.we.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -50,5 +53,17 @@ public class ChatServiceImpl implements ChatService {
             resp_common.setMsg(e.getMessage());
             return resp_common;
         }
+    }
+
+    @Override
+    public Object getChatByAppid(String appid) {
+        ChatExample chatExample =new ChatExample();
+        chatExample.createCriteria().andAppidEqualTo(appid);
+        List<Chat> chats = chatMapper.selectByExample(chatExample);
+        Resp_com_back resp_com_back =new Resp_com_back();
+        resp_com_back.setData(chats);
+        resp_com_back.setCount(chats.size());
+        resp_com_back.setCode(0);
+        return resp_com_back;
     }
 }
