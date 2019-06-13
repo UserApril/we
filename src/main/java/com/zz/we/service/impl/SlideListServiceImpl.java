@@ -4,6 +4,7 @@ import com.zz.we.dto.SlideList;
 import com.zz.we.dto.SlideListExample;
 import com.zz.we.mapper.SlideListMapper;
 import com.zz.we.response.Resp_Photos;
+import com.zz.we.response.Resp_com_back;
 import com.zz.we.response.Resp_common;
 import com.zz.we.service.SlideListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,30 @@ public class SlideListServiceImpl implements SlideListService {
         resp_common.setSuccess("1");
         return resp_common;
     }
+
+    @Override
+    public Object getAllPhotosByAppid(String appid) {
+        Resp_com_back resp_com_back =new Resp_com_back();
+        SlideListExample slideListExample =new SlideListExample();
+        slideListExample.createCriteria().andAppidEqualTo(appid);
+        List<SlideList> slideLists = slideListMapper.selectByExample(slideListExample);
+        resp_com_back.setData(slideLists);
+        resp_com_back.setCode(0);
+        resp_com_back.setCount(slideLists.size());
+        return resp_com_back;
+    }
+
+//    {
+//        "title": "", //相册标题
+//            "id": 123, //相册id
+//            "start": 0, //初始显示的图片序号，默认0
+//            "data": [   //相册包含的图片，数组格式
+//        {
+//            "alt": "图片名",
+//                "pid": 666, //图片id
+//                "src": "", //原图地址
+//                "thumb": "" //缩略图地址
+//        }]
+//    }
+
 }

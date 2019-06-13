@@ -117,7 +117,7 @@
 		<!--</table>-->
 		<!--<table tableName="comment" domainObjectName="Comment">-->
 		<!--</table>-->
-		<table tableName="permission" domainObjectName="Permission">
+		<table tableName="photos" domainObjectName="Photos">
 		</table>
 		<!-- <table tableName="lcinsureacc" domainObjectName="LcInsureAcc"> <generatedKey 
 			column="sid" sqlStatement="Mysql" identity="true"/> </table> -->

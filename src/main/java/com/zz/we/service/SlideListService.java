@@ -9,4 +9,6 @@ public interface SlideListService {
     public Object getPhotosByAppid(String appid);
 
     public Object addPhotosByMap(Map map);
+
+    public Object getAllPhotosByAppid(String appid);
 }

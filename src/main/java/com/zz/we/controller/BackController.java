@@ -1,9 +1,7 @@
 package com.zz.we.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zz.we.service.ChatService;
-import com.zz.we.service.CommentService;
-import com.zz.we.service.MainInfoService;
+import com.zz.we.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +17,8 @@ public class BackController {
     public MainInfoService mainInfoService;
     @Autowired
     public ChatService chatService;
+    @Autowired
+    public PhotosService photosService;
 
     //获取所有留言
     @RequestMapping(value = "/getcomment",method = RequestMethod.POST)
@@ -55,5 +55,11 @@ public class BackController {
     @RequestMapping(value = "/getchat",method = RequestMethod.POST)
     public Object getChat(@RequestParam("appid") String appid){
         return chatService.getChatByAppid(appid);
+    }
+
+    //查询所有相册
+    @RequestMapping(value = "/getphotos",method = RequestMethod.GET)
+    public Object getPhotos(@RequestParam("appid")String appid){
+        return photosService.getPhotosByAppid(appid);
     }
 }
