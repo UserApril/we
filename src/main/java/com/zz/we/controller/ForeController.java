@@ -14,7 +14,7 @@ public class ForeController {
     @Autowired
     public MainInfoService mainInfoService;
     @Autowired
-    public SlideListService slideListService;
+    public PhotosService photosService;
     @Autowired
     public ChatService chatService;
     @Autowired
@@ -29,7 +29,7 @@ public class ForeController {
         if("map".equals(c)){
             return mmapService.getMapByAppid(appid);
         }else if("photos".equals(c)){
-            return slideListService.getPhotosByAppid(appid);
+            return photosService.getPhotosByAppid(appid);
         }else if("index".equals(c)){
             return mainInfoService.getMainInfoByAppid(appid);
         }else if("chat".equals(c)){

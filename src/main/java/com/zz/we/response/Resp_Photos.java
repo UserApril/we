@@ -1,8 +1,6 @@
 package com.zz.we.response;
 
 
-import com.zz.we.dto.SlideList;
-
 import java.util.List;
 
 public class Resp_Photos {
