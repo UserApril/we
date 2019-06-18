@@ -62,7 +62,7 @@
                     var load = null;
                     layer.close(index);
                     $.ajax({
-                        url:'/operator/delcomment',
+                        url:'${pageContext.request.contextPath}/operator/delcomment',
                         data:{'uuid':data.uuid},
                         type:'POST',
                         dataType:"json",
@@ -86,7 +86,7 @@
             } else if(obj.event === 'edit'){
                 if(data.flag==1){
                     $.ajax({
-                        url:'/operator/updatecomment',
+                        url:'${pageContext.request.contextPath}/operator/updatecomment',
                         data:{'uuid':data.uuid},
                         type:'POST',
                         dataType:"json",
