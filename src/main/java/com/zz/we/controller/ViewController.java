@@ -10,6 +10,6 @@ public class ViewController {
 
     @RequestMapping("/{value}")
     public String getIndex(@PathVariable("value") String value){
-        return value+".html";
+        return value;
     }
 }
