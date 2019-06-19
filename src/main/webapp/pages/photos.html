@@ -15,7 +15,7 @@
 <script src="../lib/layui/lay/modules/layer.js"></script>
 <script>
     function function1(){
-        $.getJSON("${request.contextPath}/operator/getphotos?appid=wxbeebcb78fb226416", function(json){
+        $.getJSON("/operator/getphotos?appid=wxbeebcb78fb226416", function(json){
             layer.photos({
                 photos: json //格式见API文档手册页
                 ,area: '400px'

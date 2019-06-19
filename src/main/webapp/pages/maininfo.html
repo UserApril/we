@@ -28,7 +28,7 @@
             elem: '#demo' //绑定table
             ,height: 400
             ,even: true  //隔行换色
-            ,url: '${request.contextPath}/operator/getmaininfo' //请求路径
+            ,url: '/operator/getmaininfo' //请求路径
             ,method:'POST'
             ,page: true //开启分页
             ,where:{
@@ -57,7 +57,7 @@
 				var load = null;
 				layer.close(index);
 				$.ajax({
-					url:'${request.contextPath}/operator/updatemaininfo',
+					url:'/operator/updatemaininfo',
 					// data:{'he':data.he,'she':data.she,'date':data.date,'lunar':data.lunar,'appid':data.appid,'hotel':data.hotel,'address':data.address},
 					data:data,
 					type:'POST',

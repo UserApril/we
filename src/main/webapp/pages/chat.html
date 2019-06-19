@@ -27,7 +27,7 @@
             elem: '#demo' //绑定table
             ,height: 400
             ,even: true  //隔行换色
-            ,url: '${request.contextPath}/operator/getchat' //请求路径
+            ,url: '/operator/getchat' //请求路径
             ,method:'POST'
             ,page: true //开启分页
             ,where:{
@@ -35,7 +35,7 @@
             }
             ,cols: [[ //表头
                 {field: 'nickname', title: '微信昵称', width:160, sort: true, align: 'center'}
-                ,{field: 'face', title: '头像', width:80, align: 'center',templet: '#usernameTpl'}
+                ,{field: 'face', title: '头像', width:80, align: 'center'}
                 ,{field: 'name', title: '姓名', width:120, align: 'center'}
                 ,{field: 'tel', title: '电话号码', width:120, align: 'center'}
                 ,{field: 'plan', title: '出席计划', width:130, align: 'center'}

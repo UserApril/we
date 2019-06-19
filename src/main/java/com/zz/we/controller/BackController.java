@@ -58,7 +58,7 @@ public class BackController {
     }
 
     //查询所有相册
-    @RequestMapping(value = "/getphotos",method = RequestMethod.GET)
+    @RequestMapping(value = "/getphotos",method = RequestMethod.POST)
     public Object getPhotos(@RequestParam("appid")String appid){
         return photosService.getPhotosByAppid(appid);
     }
