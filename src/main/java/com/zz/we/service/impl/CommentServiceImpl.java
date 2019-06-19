@@ -84,7 +84,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = comments.get(0);
         Resp_common resp_common=new Resp_common();
         try{
-            if(comment.getFlag().equals("1")){
+            if(comment.getFlag().equals("2")){
                 iCommentMapper.updateComment(uuid,Comment_enum.UNPASS.Code());
             }else{
                 iCommentMapper.updateComment(uuid,Comment_enum.PASS.Code());
