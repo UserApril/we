@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setWords((String)map.get("words"));
             comment.setRequesttime(DateUtils.getDate());
             comment.setUpdatetime(DateUtils.getDate());
-            comment.setFlag(Comment_enum.UNPASS.Code());
+            comment.setFlag(Comment_enum.PASS.Code());
             try{
                 commentMapper.insert(comment);
             }catch (Exception e){
@@ -78,9 +78,17 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Object updateCommentFlag(String uuid) {
+        CommentExample commentExample =new CommentExample();
+        commentExample.createCriteria().andUuidEqualTo(uuid);
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        Comment comment = comments.get(0);
         Resp_common resp_common=new Resp_common();
         try{
-            iCommentMapper.updateComment(uuid,Comment_enum.PASS.Code());
+            if(comment.getFlag().equals("1")){
+                iCommentMapper.updateComment(uuid,Comment_enum.UNPASS.Code());
+            }else{
+                iCommentMapper.updateComment(uuid,Comment_enum.PASS.Code());
+            }
             resp_common.setSuccess("1");
             resp_common.setMsg("操作成功");
         }catch (Exception e){

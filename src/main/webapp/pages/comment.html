@@ -40,9 +40,9 @@
                 ,{field: 'words', title: '留言内容', width:260, align: 'center'}
                 ,{field: 'flag', title: '审核状态', width:100, align: 'center',templet: function(data){
                     if(data.flag==1){
-                        return "未通过"
+                        return "隐藏"
                     }
-                    return "已通过"
+                    return "显示"
                     }}
                 ,{field: 'uuid', title: 'UUID', width: 80, hide:true, align: 'center'}
                 ,{field: 'requesttime', title: '请求时间', width: 180, sort: true, align: 'center'}
@@ -84,31 +84,27 @@
                     });
                 });
             } else if(obj.event === 'edit'){
-                if(data.flag==1){
-                    $.ajax({
-                        url:'${request.contextPath}/operator/updatecomment',
-                        data:{'uuid':data.uuid},
-                        type:'POST',
-                        dataType:"json",
-                        //请求前执行，无论请求是否成功
-                        beforeSend : function() {
-                            //显示加载动画
-                            load = layer.load(2);
-                        },
-                        complete : function() {
-                            //关闭加载动画
-                            layer.close(load);
-                        },
-                        success:function(data){
-                            if(data.success){
-                                layer.msg("该留言审核通过");
-                                window.location.reload();
-                            }
-                        }
-                    });
-                }else{
-                    layer.msg("该留言已通过审核！");
-                }
+				$.ajax({
+					url:'${request.contextPath}/operator/updatecomment',
+					data:{'uuid':data.uuid},
+					type:'POST',
+					dataType:"json",
+					//请求前执行，无论请求是否成功
+					beforeSend : function() {
+						//显示加载动画
+						load = layer.load(2);
+					},
+					complete : function() {
+						//关闭加载动画
+						layer.close(load);
+					},
+					success:function(data){
+						if(data.success){
+							layer.msg("该留言显示状态已更改！");
+							window.location.reload();
+						}
+					}
+				});
             }
         });
     });
