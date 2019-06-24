@@ -35,7 +35,7 @@
             }
             ,cols: [[ //表头
                 {field: 'nickname', title: '微信昵称', width:160, sort: true, align: 'center'}
-                ,{field: 'face', title: '头像', width:80, align: 'center'}
+                ,{field: 'face', title: '头像', width:80, align: 'center',templet:"#titleTpl"}
                 ,{field: 'name', title: '姓名', width:120, align: 'center'}
                 ,{field: 'tel', title: '电话号码', width:120, align: 'center'}
                 ,{field: 'plan', title: '出席计划', width:130, align: 'center'}
@@ -49,6 +49,9 @@
             }
         });
     });
+</script>
+<script type="text/html" id="titleTpl">
+	<a href="{{d.face}}" class="layui-table-link"  target="_Blank">{{d.face}}</a>
 </script>
 </body>
 </html>
