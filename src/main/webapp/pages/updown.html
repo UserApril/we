@@ -53,7 +53,7 @@
                     layer.close(index);
                     $.ajax({
                         url:'/operator/delphotos',
-                        data:{'appid':data.appid},
+                        data:{'appid':data.appid,'pid':data.pid},
                         type:'POST',
                         dataType:"json",
                         //请求前执行，无论请求是否成功

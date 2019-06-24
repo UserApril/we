@@ -62,4 +62,10 @@ public class BackController {
     public Object getPhotos(@RequestParam("appid")String appid){
         return photosService.getPhotosByAppid(appid);
     }
+
+    //删除指定照片
+    @RequestMapping(value = "/delphotos",method = RequestMethod.POST)
+    public Object delPhotoByAppid(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
+        return photosService.delPhotoByid(appid,pid);
+    }
 }

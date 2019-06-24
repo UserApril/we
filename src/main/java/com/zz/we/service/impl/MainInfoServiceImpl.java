@@ -10,7 +10,6 @@ import com.zz.we.service.MainInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +52,7 @@ public class MainInfoServiceImpl implements MainInfoService {
         mainInfo.setShe((String)map.get("she"));
         mainInfo.setAddress((String)map.get("address"));
         try{
-            mainInfo.setDate(new Date((String)map.get("date")));
+            mainInfo.setDate((String)map.get("date"));
         }catch (Exception e){
             resp_common.setSuccess("2");
             resp_common.setMsg("修改失败，日期格式输入错误。");
