@@ -19,7 +19,7 @@ $(function (){
 			multiple: true,
 			auto:false,
 //			上传的单个图片大小
-			size:10240,
+			size:20480,
 //			最多上传的数量
 			number:20,
 //			MultipartFile file 对应，layui默认就是file,要改动则相应改动
