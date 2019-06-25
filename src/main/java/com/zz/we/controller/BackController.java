@@ -99,7 +99,7 @@ public class BackController {
             // 4.获取要保存的路径文件夹
             String realPath = request.getRealPath("imgs");
             // 5.保存
-            desFilePath = realPath + "\\" + newName;
+            desFilePath = realPath + "/" + newName;
             File desFile = new File(desFilePath);
             file.transferTo(desFile);
             // 6.返回保存结果信息
