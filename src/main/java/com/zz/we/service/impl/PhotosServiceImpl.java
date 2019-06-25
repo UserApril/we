@@ -30,6 +30,14 @@ public class PhotosServiceImpl implements PhotosService {
     }
 
     @Override
+    public Object getPhotosByAppid(String appid, String pid) {
+        PhotosExample photosExample =new PhotosExample();
+        photosExample.createCriteria().andAppidEqualTo(appid).andPidEqualTo(Integer.parseInt(pid));
+        List<Photos> photos = photosMapper.selectByExample(photosExample);
+        return photos.get(0).getSrc();
+    }
+
+    @Override
     public Object delPhotoByid(String appid, String pid) {
         PhotosExample photosExample =new PhotosExample();
         photosExample.createCriteria().andAppidEqualTo(appid).andPidEqualTo(Integer.parseInt(pid));
@@ -39,7 +47,7 @@ public class PhotosServiceImpl implements PhotosService {
         String path = src.substring(src.lastIndexOf("/") + 1);
         System.err.println("path:"+path);
         try{
-            File file =new File("webapp/imgs/"+path);
+            File file =new File("D:\\we\\src\\main\\webapp\\imgs\\"+path);
             file.deleteOnExit();
         }catch (RuntimeException e){
             e.printStackTrace();

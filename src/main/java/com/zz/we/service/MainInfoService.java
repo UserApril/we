@@ -10,4 +10,6 @@ public interface MainInfoService {
     public Object getAllMainInfo();
 
     public Object updateByMap(Map map);
+
+    public Object setMainPhoto(String appid,String src);
 }

@@ -65,4 +65,17 @@ public class MainInfoServiceImpl implements MainInfoService {
         resp_common.setMsg("修改成功");
         return resp_common;
     }
+
+    @Override
+    public Object setMainPhoto(String appid,String src) {
+        MainInfo mainInfo = new MainInfo();
+        mainInfo.setCover(src);
+        MainInfoExample mainInfoExample =new MainInfoExample();
+        mainInfoExample.createCriteria().andAppidEqualTo(appid);
+        mainInfoMapper.updateByExampleSelective(mainInfo,mainInfoExample);
+        Resp_common resp_common =new Resp_common();
+        resp_common.setSuccess("1");
+        resp_common.setMsg("设置成功");
+        return resp_common;
+    }
 }

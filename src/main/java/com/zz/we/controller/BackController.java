@@ -79,9 +79,8 @@ public class BackController {
         return photosService.delPhotoByid(appid,pid);
     }
 
-    @SuppressWarnings("deprecation")
+    //上传文件
     @RequestMapping("/upload")
-    @ResponseBody
     public ImgResult uplpad(MultipartFile file, HttpServletRequest request) {
         String desFilePath = "";
         String oriName = "";
@@ -118,5 +117,12 @@ public class BackController {
             imgResult.setCode(1);
             return imgResult;
         }
+    }
+
+    //设置主页
+    @RequestMapping("/setmain")
+    public Object setMain(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
+        Object value = photosService.getPhotosByAppid(appid, pid);
+        return mainInfoService.setMainPhoto(appid,(String)value);
     }
 }

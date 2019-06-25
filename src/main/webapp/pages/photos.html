@@ -38,7 +38,7 @@
                 ,{field: 'pid', title: '编号', width:100, align: 'center',sort: true}
                 ,{field: 'src', title: '访问地址', width:660, align: 'center',templet:"#titleTpl"}
                 ,{field: 'appid', title: 'APPID', width: 80, hide:true, align: 'center'}
-                ,{title: '操作', fixed: 'right', width: 120, align: 'center', toolbar: '#barDemo'}
+                ,{title: '操作', fixed: 'right', width: 180, align: 'center', toolbar: '#barDemo'}
             ]]
             ,response:{
 
@@ -48,35 +48,64 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            layer.confirm('真的删除该记录吗？', function(index){
-                var load = null;
-                layer.close(index);
-                $.ajax({
-                    url:'/operator/delphotos',
-                    data:{'appid':data.appid,'pid':data.pid},
-                    type:'POST',
-                    dataType:"json",
-                    //请求前执行，无论请求是否成功
-                    beforeSend : function() {
-                        //显示加载动画
-                        load = layer.load(2);
-                    },
-                    complete : function() {
-                        //关闭加载动画
-                        layer.close(load);
-                    },
-                    success:function(data){
-                        if(data.success){
-                            layer.msg("删除成功");
-                            window.location.reload();
+            if(obj.event === 'del'){
+                layer.confirm('真的删除该记录吗？', function(index){
+                    var load = null;
+                    layer.close(index);
+                    $.ajax({
+                        url:'/operator/delphotos',
+                        data:{'appid':data.appid,'pid':data.pid},
+                        type:'POST',
+                        dataType:"json",
+                        //请求前执行，无论请求是否成功
+                        beforeSend : function() {
+                            //显示加载动画
+                            load = layer.load(2);
+                        },
+                        complete : function() {
+                            //关闭加载动画
+                            layer.close(load);
+                        },
+                        success:function(data){
+                            if(data.success){
+                                layer.msg("删除成功");
+                                window.location.reload();
+                            }
                         }
-                    }
+                    });
                 });
-            });
+            }else{
+                layer.confirm('真的设置为主页吗？', function(index){
+                    var load = null;
+                    layer.close(index);
+                    $.ajax({
+                        url:'/operator/setmain',
+                        data:{'appid':data.appid,'pid':data.pid},
+                        type:'POST',
+                        dataType:"json",
+                        //请求前执行，无论请求是否成功
+                        beforeSend : function() {
+                            //显示加载动画
+                            load = layer.load(2);
+                        },
+                        complete : function() {
+                            //关闭加载动画
+                            layer.close(load);
+                        },
+                        success:function(data){
+                            if(data.success){
+                                layer.msg("设置成功");
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            }
         });
     });
 </script>
 <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="main">设为主页</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="titleTpl">

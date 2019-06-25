@@ -24,6 +24,7 @@ $(function (){
 			number:20,
 //			MultipartFile file 对应，layui默认就是file,要改动则相应改动
 			field:'file',
+			exts:'jpg',
 			bindAction: '#test9',
 			before: function(obj) {
 				//预读本地文件示例，不支持ie8
