@@ -33,18 +33,18 @@ public class PraiseServiceImpl implements PraiseService {
     @Override
     public Object addPraiseByMap(Map map){
         Resp_common resp_common = new Resp_common();
-        PraiseExample praiseExample = new PraiseExample();
-        praiseExample.createCriteria().andAppidEqualTo((String) map.get("appid"));
-        List<Praise> praises = praiseMapper.selectByExample(praiseExample);
-        if (praises.size() > 0) {
-            resp_common.setMsg("您的祝福新人们已经收到了哦！");
-            return resp_common;
-        }
         String nickname=(String)map.get("nickname");
         String face=(String)map.get("face");
         if(StringUtils.isEmpty(nickname)||StringUtils.isEmpty(face)){
             resp_common.setSuccess("2");
             resp_common.setMsg("为了您更好的体验,请先同意授权");
+            return resp_common;
+        }
+        PraiseExample praiseExample = new PraiseExample();
+        praiseExample.createCriteria().andNicknameEqualTo(nickname);
+        List<Praise> praises = praiseMapper.selectByExample(praiseExample);
+        if (praises.size() > 0) {
+            resp_common.setMsg("您的祝福新人们已经收到了哦！");
             return resp_common;
         }
         Praise praise = new Praise();
