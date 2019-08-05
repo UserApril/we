@@ -6,6 +6,8 @@ import com.zz.we.service.ChatService;
 import com.zz.we.service.CommentService;
 import com.zz.we.service.MainInfoService;
 import com.zz.we.service.PhotosService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,7 @@ import java.util.UUID;
 @RequestMapping("/operator")
 @RestController
 public class BackController {
+    private static final Logger log = LoggerFactory.getLogger(BackController.class);
 
     @Autowired
     public CommentService commentService;
@@ -33,30 +36,35 @@ public class BackController {
     //获取所有留言
     @RequestMapping(value = "/getcomment",method = RequestMethod.POST)
     public Object getComment(@RequestParam("appid") String appid){
+        log.info("[获取所有留言]---->>>>>star<<<<<----");
         return commentService.getAllCommentByAppid(appid);
     }
 
     //删除指定留言
     @RequestMapping(value = "/delcomment",method = RequestMethod.POST)
     public Object delComment(@RequestParam("uuid") String uuid){
+        log.info("[删除指定留言]---->>>>>star<<<<<----");
         return commentService.delCommentByUuid(uuid);
     }
 
     //修改留言状态
     @RequestMapping(value = "/updatecomment",method = RequestMethod.POST)
     public Object updateComment(@RequestParam("uuid") String uuid){
+        log.info("[修改留言状态]---->>>>>star<<<<<----");
         return commentService.updateCommentFlag(uuid);
     }
 
     //获取结婚信息
     @RequestMapping(value = "/getmaininfo",method = RequestMethod.POST)
     public Object getMainInfo(){
+        log.info("[获取结婚信息]---->>>>>star<<<<<----");
         return mainInfoService.getAllMainInfo();
     }
 
     //修改请柬基础信息
     @RequestMapping(value = "/updatemaininfo",method = RequestMethod.POST)
     public Object updateMainInfo(@RequestBody String req){
+        log.info("[修改请柬基础信息]---->>>>>star<<<<<----");
         Map map = (Map) JSONObject.parse(req);
         return mainInfoService.updateByMap(map);
     }
@@ -64,24 +72,28 @@ public class BackController {
     //查询出席信息
     @RequestMapping(value = "/getchat",method = RequestMethod.POST)
     public Object getChat(@RequestParam("appid") String appid){
+        log.info("[查询出席信息]---->>>>>star<<<<<----");
         return chatService.getChatByAppid(appid);
     }
 
     //查询所有相册
     @RequestMapping(value = "/getphotos",method = RequestMethod.POST)
     public Object getPhotos(@RequestParam("appid")String appid){
+        log.info("[查询所有相册]---->>>>>star<<<<<----");
         return photosService.getPhotosByAppid(appid);
     }
 
     //删除指定照片
     @RequestMapping(value = "/delphotos",method = RequestMethod.POST)
     public Object delPhotoByAppid(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
+        log.info("[删除指定照片]---->>>>>star<<<<<----");
         return photosService.delPhotoByid(appid,pid);
     }
 
     //上传文件
     @RequestMapping("/upload")
     public ImgResult uplpad(MultipartFile file, HttpServletRequest request) {
+        log.info("[上传文件]---->>>>>star<<<<<----");
         String desFilePath = "";
         String oriName = "";
         ImgResult result = new ImgResult();
@@ -122,6 +134,7 @@ public class BackController {
     //设置主页
     @RequestMapping("/setmain")
     public Object setMain(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
+        log.info("[设置主页照片]---->>>>>star<<<<<----");
         Object value = photosService.getPhotosByAppid(appid, pid);
         return mainInfoService.setMainPhoto(appid,(String)value);
     }
