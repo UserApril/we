@@ -33,93 +33,93 @@ public class BackController {
     @Autowired
     public PhotosService photosService;
 
-    //获取所有留言
+    //鑾峰彇鎵�鏈夌暀瑷�
     @RequestMapping(value = "/getcomment",method = RequestMethod.POST)
     public Object getComment(@RequestParam("appid") String appid){
-        log.info("[获取所有留言]---->>>>>star<<<<<----");
+        log.info("[鑾峰彇鎵�鏈夌暀瑷�]---->>>>>star<<<<<----");
         return commentService.getAllCommentByAppid(appid);
     }
 
-    //删除指定留言
+    //鍒犻櫎鎸囧畾鐣欒█
     @RequestMapping(value = "/delcomment",method = RequestMethod.POST)
     public Object delComment(@RequestParam("uuid") String uuid){
-        log.info("[删除指定留言]---->>>>>star<<<<<----");
+        log.info("[鍒犻櫎鎸囧畾鐣欒█]---->>>>>star<<<<<----");
         return commentService.delCommentByUuid(uuid);
     }
 
-    //修改留言状态
+    //淇敼鐣欒█鐘舵��
     @RequestMapping(value = "/updatecomment",method = RequestMethod.POST)
     public Object updateComment(@RequestParam("uuid") String uuid){
-        log.info("[修改留言状态]---->>>>>star<<<<<----");
+        log.info("[淇敼鐣欒█鐘舵�乚---->>>>>star<<<<<----");
         return commentService.updateCommentFlag(uuid);
     }
 
-    //获取结婚信息
+    //鑾峰彇缁撳淇℃伅
     @RequestMapping(value = "/getmaininfo",method = RequestMethod.POST)
     public Object getMainInfo(){
-        log.info("[获取结婚信息]---->>>>>star<<<<<----");
+        log.info("[鑾峰彇缁撳淇℃伅]---->>>>>star<<<<<----");
         return mainInfoService.getAllMainInfo();
     }
 
-    //修改请柬基础信息
+    //淇敼璇锋煬鍩虹淇℃伅
     @RequestMapping(value = "/updatemaininfo",method = RequestMethod.POST)
     public Object updateMainInfo(@RequestBody String req){
-        log.info("[修改请柬基础信息]---->>>>>star<<<<<----");
+        log.info("[淇敼璇锋煬鍩虹淇℃伅]---->>>>>star<<<<<----");
         Map map = (Map) JSONObject.parse(req);
         return mainInfoService.updateByMap(map);
     }
 
-    //查询出席信息
+    //鏌ヨ鍑哄腑淇℃伅
     @RequestMapping(value = "/getchat",method = RequestMethod.POST)
     public Object getChat(@RequestParam("appid") String appid){
-        log.info("[查询出席信息]---->>>>>star<<<<<----");
+        log.info("[鏌ヨ鍑哄腑淇℃伅]---->>>>>star<<<<<----");
         return chatService.getChatByAppid(appid);
     }
 
-    //查询所有相册
+    //鏌ヨ鎵�鏈夌浉鍐�
     @RequestMapping(value = "/getphotos",method = RequestMethod.POST)
     public Object getPhotos(@RequestParam("appid")String appid){
-        log.info("[查询所有相册]---->>>>>star<<<<<----");
+        log.info("[鏌ヨ鎵�鏈夌浉鍐宂---->>>>>star<<<<<----");
         return photosService.getPhotosByAppid(appid);
     }
 
-    //删除指定照片
+    //鍒犻櫎鎸囧畾鐓х墖
     @RequestMapping(value = "/delphotos",method = RequestMethod.POST)
     public Object delPhotoByAppid(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
-        log.info("[删除指定照片]---->>>>>star<<<<<----");
+        log.info("[鍒犻櫎鎸囧畾鐓х墖]---->>>>>star<<<<<----");
         return photosService.delPhotoByid(appid,pid);
     }
 
-    //上传文件
+    //涓婁紶鏂囦欢
     @RequestMapping("/upload")
     public ImgResult uplpad(MultipartFile file, HttpServletRequest request) {
-        log.info("[上传文件]---->>>>>star<<<<<----");
+        log.info("[涓婁紶鏂囦欢]---->>>>>star<<<<<----");
         String desFilePath = "";
         String oriName = "";
         ImgResult result = new ImgResult();
         Map<String, String> dataMap = new HashMap<>();
         ImgResult imgResult = new ImgResult();
         try {
-            // 1.获取原文件名
+            // 1.鑾峰彇鍘熸枃浠跺悕
             oriName = file.getOriginalFilename();
             String fileName =oriName.substring(oriName.lastIndexOf("\\")+1,oriName.lastIndexOf("."));
-            // 2.获取原文件图片后缀，以最后的.作为截取(.jpg)
+            // 2.鑾峰彇鍘熸枃浠跺浘鐗囧悗缂�锛屼互鏈�鍚庣殑.浣滀负鎴彇(.jpg)
             String extName = oriName.substring(oriName.lastIndexOf("."));
-            // 3.生成自定义的新文件名，这里以UUID.jpg|png|xxx作为格式（可选操作，也可以不自定义新文件名）
+            // 3.鐢熸垚鑷畾涔夌殑鏂版枃浠跺悕锛岃繖閲屼互UUID.jpg|png|xxx浣滀负鏍煎紡锛堝彲閫夋搷浣滐紝涔熷彲浠ヤ笉鑷畾涔夋柊鏂囦欢鍚嶏級
             String uuid = UUID.randomUUID().toString();
             String newName = uuid + extName;
-            // 4.获取要保存的路径文件夹
+            // 4.鑾峰彇瑕佷繚瀛樼殑璺緞鏂囦欢澶�
             String realPath = request.getRealPath("imgs");
-            // 5.保存
+            // 5.淇濆瓨
             desFilePath = realPath + "//" + newName;
             File desFile = new File(desFilePath);
             file.transferTo(desFile);
-            // 6.返回保存结果信息
+            // 6.杩斿洖淇濆瓨缁撴灉淇℃伅
             result.setCode(0);
             dataMap = new HashMap<>();
             dataMap.put("src", "webapp/imgs/" + newName);
             result.setData(dataMap);
-            result.setMsg(oriName + "上传成功！");
+            result.setMsg(oriName + "涓婁紶鎴愬姛锛�");
             photosService.addPhotos(newName,fileName,"wxbeebcb78fb226416");
             return result;
         } catch (IllegalStateException e) {
@@ -131,10 +131,10 @@ public class BackController {
         }
     }
 
-    //设置主页
+    //璁剧疆涓婚〉
     @RequestMapping("/setmain")
     public Object setMain(@RequestParam("appid")String appid,@RequestParam("pid")String pid){
-        log.info("[设置主页照片]---->>>>>star<<<<<----");
+        log.info("[璁剧疆涓婚〉鐓х墖]---->>>>>star<<<<<----");
         Object value = photosService.getPhotosByAppid(appid, pid);
         return mainInfoService.setMainPhoto(appid,(String)value);
     }
